@@ -5,8 +5,8 @@
 <style>
 :root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ee;--acc:#1f6feb;--neg:#c0392b;--pos:#1a7f4b}
 @media(prefers-color-scheme:dark){:root{--bg:#12161c;--card:#1a2029;--ink:#e8ecf2;--mute:#8d98a8;--line:#2b3441;--acc:#5b9bff;--neg:#ff7b6b;--pos:#4cc38a}}
-*{box-sizing:border-box}body{margin:0;font:15px system-ui,sans-serif;background:var(--bg);color:var(--ink)}
-main{max-width:1100px;margin:0 auto;padding:16px}header{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
+*{box-sizing:border-box}body{min-height:100vh;display:flex;flex-direction:column;margin:0;font:15px system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+main{width:100%;flex:1;max-width:1100px;margin:0 auto;padding:16px}header{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
 .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
 h1{font-size:20px;margin:0}h2{font-size:16px;margin:0 0 8px}
@@ -22,4 +22,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}.neg{color:var(--ne
 .sw{display:inline-block;width:10px;height:10px;border-radius:2px;flex:none;margin-right:4px}svg text{font-family:inherit}
 .tx{fill:var(--mute);font-size:11px}.gl{stroke:var(--line)}.sl{stroke:var(--card);stroke-width:1}.bar{fill:var(--acc);opacity:.85}
 .ln{fill:none;stroke:#f28e2b;stroke-width:2}.tr{stroke:#e15759;stroke-width:2;stroke-dasharray:6 4}
-</style></head><body><main id="app"></main><script src="/static/app.js"></script></body></html>
+footer{text-align:center;padding:16px;border-top:1px solid var(--line);font-size:13px;color:var(--mute)}footer a{color:var(--acc)}
+</style><head></head><body><main id="app"></main>
+<footer>ExpTracker by wickz © | 2026 | <a href="https://github.com/Sharkwick/ExpTracker" target="_blank" rel="noopener noreferrer">GitHub</a> | <a href="https:www.wickz.one" target="_blank" rel="noopener noreferrer">Visit Developer</a></footer>
+<script src="/static/app.js"></script></body></html>

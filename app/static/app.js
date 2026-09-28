@@ -122,27 +122,30 @@ function view() {
                     <header><div>${tabs()}</div> <button class="g" id="lo">Sign out</button> </header>
   <input type="file" id="file" accept=".csv,text/csv" hidden>
   <div class="grid">
-   <div class="card"><h2>Balance</h2><div class="big ${cls(S.balance)}">${cur} ${fmt(S.balance)}</div>
-    <p class="m">Daily average until Period Ending Date: <b class="${cls(S.daily_average)}">${S.daily_average === null ? '—' : fmt(S.daily_average)}</b><br>
-    Days until Period Ending Date: <b>${S.days_until_period_end}</b>${S.days_until_period_end <= 0 ? ' <span class="neg">(Period Ending Date has passed — roll the period forward)</span>' : ''}<br>Now: ${esc(S.current_date.replace('T', ' '))} (${esc(S.tz)})</p></div>
-   <div class="card"><h2>Period</h2><div class="row">
+    <div class="card"><h2>Period</h2><div class="row">
     <label>Period Starting Date<input type="date" id="ps" value="${S.period_start}"></label>
     <label>Period Ending Date<input type="date" id="ns" value="${S.period_end_date}"></label>
     <button id="sp">Save</button>${S.start_is_override || S.end_is_override ? '<button class="g" id="auto">Reset to auto</button>' : ''}</div>
-    <p class="m">${S.start_is_override || S.end_is_override ? 'Manual dates in use. Reset to auto for the current month (1st to last day).' : 'Auto: current month, 1st to last day. Pick other dates to override.'}</p></div></div>
+    <p class="m">${S.start_is_override || S.end_is_override ? 'Manual dates in use. Reset to auto for the current month (1st to last day).' : 'Auto: current month, 1st to last day. Pick other dates to override.'}</p></div>
+   <div class="card"><h2>Balance</h2><div class="big ${cls(S.balance)}">${cur} ${fmt(S.balance)}</div>
+    <p class="m">Daily average until Period Ending Date: <b class="${cls(S.daily_average)}">${S.daily_average === null ? '—' : fmt(S.daily_average)}</b><br>
+    Days until Period Ending Date: <b>${S.days_until_period_end}</b>${S.days_until_period_end <= 0 ? ' <span class="neg">(Period Ending Date has passed — roll the period forward)</span>' : ''}<br>Now: ${esc(S.current_date.replace('T', ' '))} (${esc(S.tz)})</p></div>
+   </div>
   <div class="grid">
    <div class="card"><h2>Income <span class="pos">${fmt(S.income_total)}</span></h2><table>${catRows(S.income)}</table>
     <div class="row"><input id="nci" placeholder="New income type"><button class="g" data-addcat="income">Add</button></div></div>
    <div class="card"><h2>Expenses <span class="neg">${fmt(S.expense_total)}</span></h2><table>${catRows(S.expenses)}</table>
     <div class="row"><input id="nce" placeholder="New expense type"><button class="g" data-addcat="expense">Add</button></div></div></div>
-  <header><div><button class="g" id="tpl">Download CSV Template</button> <button class="g" id="imp">Upload Filled CSV</button></div></header>
-  <div class="card"><h2>${e ? 'Edit transaction' : 'Add transaction'}</h2><div class="row">
-   <label>Date<input type="date" id="d" value="${e ? e.date : new Date().toISOString().slice(0, 10)}"></label>
-   <label>Income type<select id="ic">${opts('income', e?.income_cat_id)}</select></label>
-   <label>Exp type<select id="ec">${opts('expense', e?.expense_cat_id)}</select></label>
-   <label>Description<input id="ds" maxlength="200" value="${esc(e?.description)}"></label>
-   <label>Amount (e.g. 300+320)<input id="am" value="${esc(e ? (e.expr || e.amount) : '')}"></label>
-   <button id="sv">${e ? 'Update' : 'Add'}</button>${e ? '<button class="g" id="cx">Cancel</button>' : ''}</div><div class="err" id="te"></div></div>
+  <div class="card"><h2>${e ? 'Edit transaction' : 'Add transaction'}</h2>
+   <div class="row" style="margin-bottom:12px"><button class="g" id="tpl">Download CSV Template</button> <button class="g" id="imp">Upload Filled CSV</button></div>
+   <p class="m">Or enter a transaction manually:</p>
+   <div class="row">
+    <label>Date<input type="date" id="d" value="${e ? e.date : new Date().toISOString().slice(0, 10)}"></label>
+    <label>Income type<select id="ic">${opts('income', e?.income_cat_id)}</select></label>
+    <label>Exp type<select id="ec">${opts('expense', e?.expense_cat_id)}</select></label>
+    <label>Description<input id="ds" maxlength="200" value="${esc(e?.description)}"></label>
+    <label>Amount (e.g. 300+320)<input id="am" value="${esc(e ? (e.expr || e.amount) : '')}"></label>
+    <button id="sv">${e ? 'Update' : 'Add'}</button>${e ? '<button class="g" id="cx">Cancel</button>' : ''}</div><div class="err" id="te"></div></div>
   <div class="card"><div class="row" style="justify-content:space-between"><h2>Transactions</h2>
    <select id="sc"><option value="current" ${scope === 'current' ? 'selected' : ''}>Current period</option><option value="all" ${scope === 'all' ? 'selected' : ''}>All</option><option value="range" ${scope === 'range' ? 'selected' : ''}>Date range</option></select>
    ${scope === 'range' ? `<label>From<input type="date" id="rf" value="${rf}"></label><label>To<input type="date" id="rt" value="${rt}"></label>` : ''}</div>
