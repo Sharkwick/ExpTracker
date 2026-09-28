@@ -434,3 +434,15 @@ app.mount("/static", StaticFiles(directory=STATIC), name="static")
 
 @app.get("/")
 def index(): return FileResponse(STATIC / "index.html")
+
+
+ICON_DIR = Path(__file__).parent / "assets" / "png"
+
+
+@app.get("/favicon.png", include_in_schema=False)
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    """Serves the site icon from app/assets/png (favicon.png if present, otherwise the first .png there)."""
+    pngs = sorted(ICON_DIR.glob("*.png"), key=lambda p: (p.name != "favicon.png", p.name))
+    if not pngs: return Response(status_code=204)
+    return FileResponse(pngs[0], media_type="image/png", headers={"Cache-Control": "public, max-age=86400"})

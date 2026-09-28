@@ -95,7 +95,9 @@ function monthly() {
 
 function chartsView() {
   const exp = S.categories.filter(c => c.kind === 'expense'), cur = esc(S.currency);
-  root.innerHTML = `<header> <h2>${esc(S.title)}</h2> <div> <h1>Graphical Visualisation<h1> </div> <div> <h2> logged in as : ${esc(S.email || '')} </h2> </dv> </header>
+  root.innerHTML = `<h1>${esc(S.title)}</h1>
+                    <header><h2>Graphical Summary & VIsualisation</h2></header>
+                    <header><h5>logged in as : ${esc(S.email || '')}</h5></header>
                     <header><div>${tabs()}</div> <button class="g" id="lo">Sign out</button> </header>
   <p class="m">Pie charts cover the current period: ${S.period_start} to ${S.period_end_date}. Categories with zero or negative totals are not drawn.</p>
   <div class="pies">
@@ -114,8 +116,10 @@ const catRows = (rows, kind) => !rows.length ? '<tr><td class="m">None yet - add
 
 function view() {
   const e = editing ? T.find(t => t.id === editing) : null, cur = esc(S.currency);
-  root.innerHTML = `<header> <h2>${esc(S.title)}</h2> <div> <h1>Data Entry and Tabular View<h1> </div> <div> <h2> logged in as : ${esc(S.email || '')} </h2> </dv> </header>
-                    <header><div>${tabs()}</div><div><button class="g" id="tpl">Download CSV Template</button> <button class="g" id="imp">Upload Filled CSV</button></div>  <button class="g" id="lo">Sign out</button> </header>
+  root.innerHTML = `<h1>${esc(S.title)}</h1>
+                    <header><h2>Data Entry and Tabular View</h2></header>
+                    <header><h5>logged in as : ${esc(S.email || '')}</h5></header>
+                    <header><div>${tabs()}</div> <button class="g" id="lo">Sign out</button> </header>
   <input type="file" id="file" accept=".csv,text/csv" hidden>
   <div class="grid">
    <div class="card"><h2>Balance</h2><div class="big ${cls(S.balance)}">${cur} ${fmt(S.balance)}</div>
@@ -131,6 +135,7 @@ function view() {
     <div class="row"><input id="nci" placeholder="New income type"><button class="g" data-addcat="income">Add</button></div></div>
    <div class="card"><h2>Expenses <span class="neg">${fmt(S.expense_total)}</span></h2><table>${catRows(S.expenses)}</table>
     <div class="row"><input id="nce" placeholder="New expense type"><button class="g" data-addcat="expense">Add</button></div></div></div>
+  <header><div><button class="g" id="tpl">Download CSV Template</button> <button class="g" id="imp">Upload Filled CSV</button></div></header>
   <div class="card"><h2>${e ? 'Edit transaction' : 'Add transaction'}</h2><div class="row">
    <label>Date<input type="date" id="d" value="${e ? e.date : new Date().toISOString().slice(0, 10)}"></label>
    <label>Income type<select id="ic">${opts('income', e?.income_cat_id)}</select></label>
