@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monthly Expenses</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ee;--acc:#1f6feb;--neg:#c0392b;--pos:#1a7f4b}
+@media(prefers-color-scheme:dark){:root{--bg:#12161c;--card:#1a2029;--ink:#e8ecf2;--mute:#8d98a8;--line:#2b3441;--acc:#5b9bff;--neg:#ff7b6b;--pos:#4cc38a}}
+*{box-sizing:border-box}body{margin:0;font:15px system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+main{max-width:1100px;margin:0 auto;padding:16px}header{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+h1{font-size:20px;margin:0}h2{font-size:16px;margin:0 0 8px}
+input,select,button{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+button{cursor:pointer;background:var(--acc);color:#fff;border:0}button.g{background:none;color:var(--acc);border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse}td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}.neg{color:var(--neg)}.pos{color:var(--pos)}.m{color:var(--mute);font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.row label{display:flex;flex-direction:column;font-size:12px;color:var(--mute);gap:3px}
+.big{font-size:26px;font-weight:600}.wrap{overflow-x:auto}.err{color:var(--neg);min-height:1.2em}.dim{opacity:.5}
+#auth{max-width:360px;margin:12vh auto}#auth input{width:100%;margin:5px 0}
+.pies{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.pies .card{margin:0}
+.lg{list-style:none;margin:8px 0 0;padding:0;font-size:13px}.lg li{display:flex;gap:6px;align-items:center;padding:2px 0}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;flex:none;margin-right:4px}svg text{font-family:inherit}
+.tx{fill:var(--mute);font-size:11px}.gl{stroke:var(--line)}.sl{stroke:var(--card);stroke-width:1}.bar{fill:var(--acc);opacity:.85}
+.ln{fill:none;stroke:#f28e2b;stroke-width:2}.tr{stroke:#e15759;stroke-width:2;stroke-dasharray:6 4}
+</style></head><body><main id="app"></main><script src="/static/app.js"></script></body></html>
