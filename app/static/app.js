@@ -15,7 +15,7 @@ let S, T, editing = null, scope = 'current', rf = '', rt = '', tab = 'main', M =
 
 function authView(mode = 'login') {
   const su = mode === 'signup';
-  root.innerHTML = `<div id="auth" class="card"><h1>Monthly Expenses</h1><p class="m">${su ? 'Create your private account' : 'Sign in to your account'}</p>
+  root.innerHTML = `<div id="auth" class="card"><h1>ExpTracker by Wickz</h1><p>login or create an account, it's free!</p><p class="m">${su ? 'Create your private account' : 'Sign in to your account'}</p>
   <input id="em" type="email" placeholder="Email" autocomplete="username"><input id="pw" type="password" placeholder="Password${su ? ' (10+ characters)' : ''}" autocomplete="${su ? 'new-password' : 'current-password'}">
   <div class="err" id="er"></div><div class="row"><button id="go">${su ? 'Sign up' : 'Sign in'}</button><button class="g" id="sw">${su ? 'I have an account' : 'Create account'}</button></div></div>`;
   $('#sw').onclick = () => authView(su ? 'login' : 'signup');
@@ -90,7 +90,7 @@ function monthly() {
     trend = `<line class="tr" x1="${cx(0)}" y1="${y(a)}" x2="${cx(n - 1)}" y2="${y(a + b * (n - 1))}"/>`;
   }
   return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" role="img" aria-label="Month-on-month expenses">${grid}${bars}${line}${trend}</svg>
-   <p class="m"><span class="sw" style="background:var(--acc)"></span>Monthly expenses <span class="sw" style="background:#f28e2b;margin-left:12px"></span>Month-on-month line <span class="sw" style="background:#e15759;margin-left:12px"></span>Linear trend</p>`;
+   <p class="m"><span class="sw" style="background:var(--acc)"></span>ExpTracker by Wickz <span class="sw" style="background:#f28e2b;margin-left:12px"></span>Month-on-month line <span class="sw" style="background:#e15759;margin-left:12px"></span>Linear trend</p>`;
 }
 
 function chartsView() {
@@ -128,8 +128,8 @@ function view() {
     <button id="sp">Save</button>${S.start_is_override || S.end_is_override ? '<button class="g" id="auto">Reset to auto</button>' : ''}</div>
     <p class="m">${S.start_is_override || S.end_is_override ? 'Manual dates in use. Reset to auto for the current month (1st to last day).' : 'Auto: current month, 1st to last day. Pick other dates to override.'}</p></div>
    <div class="card"><h2>Balance</h2><div class="big ${cls(S.balance)}">${cur} ${fmt(S.balance)}</div>
-    <p class="m">Daily average until Period Ending Date: <b class="${cls(S.daily_average)}">${S.daily_average === null ? '—' : fmt(S.daily_average)}</b><br>
-    Days until Period Ending Date: <b>${S.days_until_period_end}</b>${S.days_until_period_end <= 0 ? ' <span class="neg">(Period Ending Date has passed — roll the period forward)</span>' : ''}<br>Now: ${esc(S.current_date.replace('T', ' '))} (${esc(S.tz)})</p></div>
+    <p class="m">Daily average until Period Ending Date: <b class="${cls(S.daily_average)}">${S.daily_average === null ? 'N/a' : fmt(S.daily_average)}</b><br>
+    Days until Period Ending Date: <b>${S.days_until_period_end}</b>${S.days_until_period_end <= 0 ? ' <span>(N/a)</span>' : ''}<br>Now: ${esc(S.current_date.replace('T', ' '))} (${esc(S.tz)})</p></div>
    </div>
   <div class="grid">
    <div class="card"><h2>Income <span class="pos">${fmt(S.income_total)}</span></h2><table>${catRows(S.income)}</table>

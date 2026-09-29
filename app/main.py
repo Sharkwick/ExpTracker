@@ -1,4 +1,4 @@
-"""Monthly Expenses web app - FastAPI backend. Every query is scoped to the logged-in user."""
+# ---------- dependencies ----------
 import ast, calendar, csv, io, os, re, secrets, time
 from typing import Optional
 from datetime import date as Date, datetime, timedelta, timezone
@@ -145,6 +145,7 @@ def compute(u: User, db: Session):
     te = -sum(int(Decimal(r["total"]) * 100) for r in exp)   # sheet: D20 = -SUM(...)
     bal = ti + te
     days = int(xl_round((datetime.combine(end + timedelta(days=1), datetime.min.time()) - now).total_seconds() / 86400))  # end date is inclusive
+    days = "" if days < 0 else days
     daily = money(int(xl_round(bal / days, 0))) if days else None  # sheet: ROUND(D4/D8,2)
     return cats, txns, week, inp, {
         "title": f"Expenses Summary - {end.strftime('%b %Y')}", "period_start": str(start), "auto_period_start": str(auto_start), "start_is_override": bool(u.start_override),
@@ -436,13 +437,12 @@ app.mount("/static", StaticFiles(directory=STATIC), name="static")
 def index(): return FileResponse(STATIC / "index.html")
 
 
-ICON_DIR = Path(__file__).parent / "assets" / "png"
+ICON_DIR = Path(__file__).parent / "assets" / "svg"
 
 
-@app.get("/favicon.png", include_in_schema=False)
+@app.get("/favicon.svg", include_in_schema=False)
 @app.get("/favicon.ico", include_in_schema=False)
 def favicon():
-    """Serves the site icon from app/assets/png (favicon.png if present, otherwise the first .png there)."""
-    pngs = sorted(ICON_DIR.glob("*.png"), key=lambda p: (p.name != "favicon.png", p.name))
-    if not pngs: return Response(status_code=204)
-    return FileResponse(pngs[0], media_type="image/png", headers={"Cache-Control": "public, max-age=86400"})
+    svgs = sorted(ICON_DIR.glob("*.svg"), key=lambda p: (p.name != "favicon.svg", p.name))
+    if not svgs: return Response(status_code=204)
+    return FileResponse(svgs[0], media_type="image/svg+xml", headers={"Cache-Control": "public, max-age=86400"})
