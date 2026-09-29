@@ -1,0 +1,21 @@
+{
+  "packageId": "one.wickz.exptracker.twa",
+  "host": "exptracker.wickz.one",
+  "name": "Monthly Expenses",
+  "launcherName": "ExpTracker",
+  "display": "standalone",
+  "themeColor": "#1f6feb",
+  "backgroundColor": "#f6f7f9",
+  "navigationColor": "#1f6feb",
+  "startUrl": "/",
+  "iconUrl": "https://exptracker.wickz.one/static/icons/icon-512.png",
+  "maskableIconUrl": "https://exptracker.wickz.one/static/icons/icon-512-maskable.png",
+  "shortcuts": [],
+  "webManifestUrl": "https://exptracker.wickz.one/manifest.json",
+  "fallbackType": "customtabs",
+  "orientation": "portrait",
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "android"
+  }
+}

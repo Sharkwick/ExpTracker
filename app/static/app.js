@@ -12,6 +12,7 @@ async function api(p, method = 'GET', body) {
   return d;
 }
 let S, T, editing = null, scope = 'current', rf = '', rt = '', tab = 'main', M = [], mCat = '', me = '';
+let fInc = '', fExp = '', fDesc = '', fMin = '', fMax = ''; // transaction column filters
 
 function authView(mode = 'login') {
   const su = mode === 'signup';
@@ -114,6 +115,16 @@ function chartsView() {
 const opts = (kind, sel) => `<option value="">—</option>` + S.categories.filter(c => c.kind === kind).map(c => `<option value="${c.id}" ${c.id == sel ? 'selected' : ''}>${esc(c.name)}</option>`).join('');
 const catRows = (rows, kind) => !rows.length ? '<tr><td class="m">None yet - add one below.</td></tr>' : rows.map(r => `<tr><td>${esc(r.name)}</td><td class="n ${cls(r.total)}">${fmt(r.total)}</td><td class="n"><button class="g" data-delcat="${r.id}" title="Delete category">×</button></td></tr>`).join('');
 
+function filterRows(rows) {
+  return rows.filter(t =>
+    (!fInc || String(t.income_cat_id) === fInc) &&
+    (!fExp || String(t.expense_cat_id) === fExp) &&
+    (!fDesc || (t.description || '').toLowerCase().includes(fDesc.toLowerCase())) &&
+    (!fMin || parseFloat(t.amount) >= parseFloat(fMin)) &&
+    (!fMax || parseFloat(t.amount) <= parseFloat(fMax))
+  );
+}
+
 function view() {
   const e = editing ? T.find(t => t.id === editing) : null, cur = esc(S.currency);
   root.innerHTML = `<h1>${esc(S.title)}</h1>
@@ -147,11 +158,19 @@ function view() {
     <label>Amount (e.g. 300+320)<input id="am" value="${esc(e ? (e.expr || e.amount) : '')}"></label>
     <button id="sv">${e ? 'Update' : 'Add'}</button>${e ? '<button class="g" id="cx">Cancel</button>' : ''}</div><div class="err" id="te"></div></div>
   <div class="card"><div class="row" style="justify-content:space-between"><h2>Transactions</h2>
-   <select id="sc"><option value="current" ${scope === 'current' ? 'selected' : ''}>Current period</option><option value="all" ${scope === 'all' ? 'selected' : ''}>All</option><option value="range" ${scope === 'range' ? 'selected' : ''}>Date range</option></select>
-   ${scope === 'range' ? `<label>From<input type="date" id="rf" value="${rf}"></label><label>To<input type="date" id="rt" value="${rt}"></label>` : ''}</div>
+   <div class="row" style="margin:8px 0">
+    <form id="ff" class="row" style="margin:8px 0">
+    <label>Income type<select id="fi"><option value="">All</option>${S.categories.filter(c => c.kind === 'income').map(c => `<option value="${c.id}" ${String(c.id) === fInc ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></label>
+    <label>Exp type<select id="fe"><option value="">All</option>${S.categories.filter(c => c.kind === 'expense').map(c => `<option value="${c.id}" ${String(c.id) === fExp ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></label>
+    <label>Description<input id="fd" placeholder="Search..." value="${esc(fDesc)}"></label>
+    <label>Min amount<input type="number" id="fmn" value="${esc(fMin)}"></label>
+    <label>Max amount<input type="number" id="fmx" value="${esc(fMax)}"></label>
+    <button type="submit">Apply filters</button> <button type="button" class="g" id="fclr">Clear filters</button></form>
+    <select id="sc"><option value="current" ${scope === 'current' ? 'selected' : ''}>Current period</option><option value="all" ${scope === 'all' ? 'selected' : ''}>All</option><option value="range" ${scope === 'range' ? 'selected' : ''}>Date range</option></select>
+    ${scope === 'range' ? `<label>From<input type="date" id="rf" value="${rf}"></label><label>To<input type="date" id="rt" value="${rt}"></label>` : ''}</div>
    <div class="wrap"><table><tr><th>Date</th><th>Income type</th><th>Exp type</th><th>Description</th><th class="n">Amount</th><th>Week</th><th></th></tr>
-   ${T.map(t => `<tr class="${t.current ? '' : 'dim'}"><td>${t.date}</td><td>${esc(t.income_type)}</td><td>${esc(t.expense_type)}</td><td>${esc(t.description)}</td><td class="n ${cls(t.amount)}">${fmt(t.amount)}</td><td>${t.week}</td>
-   <td class="n"><button class="g" data-ed="${t.id}">Edit</button> <button class="g" data-dt="${t.id}">Delete</button></td></tr>`).join('') || '<tr><td colspan="7" class="m">No transactions in this view.</td></tr>'}</table></div></div>`;
+   ${filterRows(T).map(t => `<tr class="${t.current ? '' : 'dim'}"><td>${t.date}</td><td>${esc(t.income_type)}</td><td>${esc(t.expense_type)}</td><td>${esc(t.description)}</td><td class="n ${cls(t.amount)}">${fmt(t.amount)}</td><td>${t.week}</td>
+   <td class="n"><button class="g" data-ed="${t.id}">Edit</button> <button class="g" data-dt="${t.id}">Delete</button></td></tr>`).join('') || '<tr><td colspan="7" class="m">No transactions match this view.</td></tr>'}</table></div></div>`;
   const act = fn => async ev => { try { await fn(ev); await load(); } catch (x) { alert(x.message); } };
   bindNav();
   $('#imp').onclick = () => $('#file').click();
@@ -164,6 +183,12 @@ function view() {
   if ($('#auto')) $('#auto').onclick = act(() => api('/settings', 'PUT', {period_start_override: null, period_end_override: null, tz: S.tz, currency: S.currency}));
   $('#sc').onchange = ev => { scope = ev.target.value; load().catch(x => alert(x.message)); };
   if ($('#rf')) { $('#rf').onchange = ev => { rf = ev.target.value; load().catch(x => alert(x.message)); }; $('#rt').onchange = ev => { rt = ev.target.value; load().catch(x => alert(x.message)); }; }
+  $('#ff').onsubmit = ev => {
+    ev.preventDefault();
+    fInc = $('#fi').value; fExp = $('#fe').value; fDesc = $('#fd').value; fMin = $('#fmn').value; fMax = $('#fmx').value;
+    view();
+  };
+  $('#fclr').onclick = () => { fInc = fExp = fDesc = fMin = fMax = ''; view(); };
   document.querySelectorAll('[data-addcat]').forEach(b => b.onclick = act(() => { const k = b.dataset.addcat, i = $(k === 'income' ? '#nci' : '#nce'); return api('/categories', 'POST', {kind: k, name: i.value}); }));
   document.querySelectorAll('[data-delcat]').forEach(b => b.onclick = act(() => confirm('Delete this category?') && api('/categories/' + b.dataset.delcat, 'DELETE')));
   document.querySelectorAll('[data-dt]').forEach(b => b.onclick = act(() => confirm('Delete this transaction?') && api('/transactions/' + b.dataset.dt, 'DELETE')));
