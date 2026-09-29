@@ -357,16 +357,20 @@ def monthly_expenses(category_id: Optional[int] = None, u: User = Depends(me), d
 HEAD = ["Date", "Income Type", "Exp Type", "Description", "Amount"]
 ALIAS = {"date": 0, "income type": 1, "income": 1, "exp type": 2, "expense type": 2, "expense": 2,
          "description": 3, "desc": 3, "amount": 4}
+NOTE_ROW = ["Date format: YYYY-MM-DD, remove this row before uploading the file", "", "", "", ""]
 
 
 @app.get("/api/import/template")
 def import_template():
-    return Response(",".join(HEAD) + "\r\n", media_type="text/csv",
+    import io as _io, csv as _csv
+    buf = _io.StringIO()
+    w = _csv.writer(buf, lineterminator="\r\n")
+    w.writerow(HEAD)
+    w.writerow(NOTE_ROW)
+    return Response(buf.getvalue(), media_type="text/csv",
                     headers={"Content-Disposition": 'attachment; filename="import_template.csv"'})
 
-
 def parse_dates(raw):
-    """YYYY-MM-DD, or D/M/YYYY vs M/D/YYYY detected from the file itself; ambiguous files are rejected."""
     iso, sl = re.compile(r"^(\d{4})-(\d{1,2})-(\d{1,2})"), re.compile(r"^(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})")
     nums = [(int(x[1]), int(x[2])) for x in map(sl.match, raw) if x]
     dayfirst = None
