@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ExpTracker by Wickz</title>
+<title>Monthly Expenses</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#1f6feb">
 <style>
 :root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ee;--acc:#1f6feb;--neg:#c0392b;--pos:#1a7f4b}
 @media(prefers-color-scheme:dark){:root{--bg:#12161c;--card:#1a2029;--ink:#e8ecf2;--mute:#8d98a8;--line:#2b3441;--acc:#5b9bff;--neg:#ff7b6b;--pos:#4cc38a}}
@@ -23,6 +24,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}.neg{color:var(--ne
 .tx{fill:var(--mute);font-size:11px}.gl{stroke:var(--line)}.sl{stroke:var(--card);stroke-width:1}.bar{fill:var(--acc);opacity:.85}
 .ln{fill:none;stroke:#f28e2b;stroke-width:2}.tr{stroke:#e15759;stroke-width:2;stroke-dasharray:6 4}
 footer{text-align:center;padding:16px;border-top:1px solid var(--line);font-size:13px;color:var(--mute)}footer a{color:var(--acc)}
-</style><head></head><body><main id="app"></main>
+</style></head><body><main id="app"></main>
 <footer>ExpTracker by wickz © | 2026 | <a href="https://github.com/Sharkwick/ExpTracker" target="_blank" rel="noopener noreferrer">GitHub</a> | <a href="https://www.wickz.one" target="_blank" rel="noopener noreferrer">Visit Developer</a></footer>
-<script src="/static/app.js"></script></body></html>
+<script src="/static/app.js"></script>
+<script>if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js"));</script></body></html>

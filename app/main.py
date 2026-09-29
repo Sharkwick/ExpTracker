@@ -1,4 +1,4 @@
-# ---------- dependencies ----------
+"""Monthly Expenses web app - FastAPI backend. Every query is scoped to the logged-in user."""
 import ast, calendar, csv, io, os, re, secrets, time
 from typing import Optional
 from datetime import date as Date, datetime, timedelta, timezone
@@ -145,7 +145,6 @@ def compute(u: User, db: Session):
     te = -sum(int(Decimal(r["total"]) * 100) for r in exp)   # sheet: D20 = -SUM(...)
     bal = ti + te
     days = int(xl_round((datetime.combine(end + timedelta(days=1), datetime.min.time()) - now).total_seconds() / 86400))  # end date is inclusive
-    days = "" if days < 0 else days
     daily = money(int(xl_round(bal / days, 0))) if days else None  # sheet: ROUND(D4/D8,2)
     return cats, txns, week, inp, {
         "title": f"Expenses Summary - {end.strftime('%b %Y')}", "period_start": str(start), "auto_period_start": str(auto_start), "start_is_override": bool(u.start_override),
@@ -357,20 +356,16 @@ def monthly_expenses(category_id: Optional[int] = None, u: User = Depends(me), d
 HEAD = ["Date", "Income Type", "Exp Type", "Description", "Amount"]
 ALIAS = {"date": 0, "income type": 1, "income": 1, "exp type": 2, "expense type": 2, "expense": 2,
          "description": 3, "desc": 3, "amount": 4}
-NOTE_ROW = ["Date format: YYYY-MM-DD, remove this row before uploading the file", "", "", "", ""]
 
 
 @app.get("/api/import/template")
 def import_template():
-    import io as _io, csv as _csv
-    buf = _io.StringIO()
-    w = _csv.writer(buf, lineterminator="\r\n")
-    w.writerow(HEAD)
-    w.writerow(NOTE_ROW)
-    return Response(buf.getvalue(), media_type="text/csv",
+    return Response(",".join(HEAD) + "\r\n", media_type="text/csv",
                     headers={"Content-Disposition": 'attachment; filename="import_template.csv"'})
 
+
 def parse_dates(raw):
+    """YYYY-MM-DD, or D/M/YYYY vs M/D/YYYY detected from the file itself; ambiguous files are rejected."""
     iso, sl = re.compile(r"^(\d{4})-(\d{1,2})-(\d{1,2})"), re.compile(r"^(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})")
     nums = [(int(x[1]), int(x[2])) for x in map(sl.match, raw) if x]
     dayfirst = None
@@ -441,12 +436,32 @@ app.mount("/static", StaticFiles(directory=STATIC), name="static")
 def index(): return FileResponse(STATIC / "index.html")
 
 
-ICON_DIR = Path(__file__).parent / "assets" / "svg"
+@app.get("/manifest.json", include_in_schema=False)
+def manifest():
+    return FileResponse(STATIC / "manifest.json", media_type="application/manifest+json",
+                        headers={"Cache-Control": "public, max-age=3600"})
+
+
+@app.get("/sw.js", include_in_schema=False)
+def service_worker():
+    # Served at the root (not /static/sw.js) so its default scope covers the whole app.
+    return FileResponse(STATIC / "sw.js", media_type="application/javascript",
+                        headers={"Cache-Control": "no-cache", "Service-Worker-Allowed": "/"})
+
+
+@app.get("/.well-known/assetlinks.json", include_in_schema=False)
+def asset_links():
+    # Proves this domain owns the Android (TWA) app so it launches with no browser address bar.
+    return FileResponse(STATIC / ".well-known" / "assetlinks.json", media_type="application/json")
+
+
+ICON_DIR = Path(__file__).parent / "assets" / "png"
 
 
 @app.get("/favicon.svg", include_in_schema=False)
 @app.get("/favicon.ico", include_in_schema=False)
 def favicon():
+    """Serves the site icon from app/assets/png (favicon.svg if present, otherwise the first .svg there)."""
     svgs = sorted(ICON_DIR.glob("*.svg"), key=lambda p: (p.name != "favicon.svg", p.name))
     if not svgs: return Response(status_code=204)
     return FileResponse(svgs[0], media_type="image/svg+xml", headers={"Cache-Control": "public, max-age=86400"})

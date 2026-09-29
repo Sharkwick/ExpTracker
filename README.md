@@ -1,4 +1,4 @@
-# Monthly Expenses
+# ExpTracker by Wickz
 
 A private, multi-user expense tracker I built end to end: a Python API, a SQL database and a dependency-free JavaScript frontend. Each person creates an account and works in their own isolated space. Because the data is financial, privacy and correctness drove most of the design decisions.
 
@@ -8,6 +8,7 @@ A private, multi-user expense tracker I built end to end: a Python API, a SQL da
 - **Visual insight:** three pie charts and a month-on-month expense chart with a trend line and category filter, all drawn as plain SVG with no charting library.
 - **Safe CSV import:** validated and all-or-nothing, with a downloadable template.
 - **Exact money handling:** amounts stored as integer cents, never floats.
+- **Installable app:** a Progressive Web App today, and packaged as a real Android app via a Trusted Web Activity (TWA) wrapper — same codebase, no rewrite.
 
 ## Tech stack
 | Layer | Choice |
@@ -17,6 +18,7 @@ A private, multi-user expense tracker I built end to end: a Python API, a SQL da
 | Database | SQLite locally; any Postgres (for example a free-tier Neon database) through one `DATABASE_URL` setting |
 | Auth | Email and password (Argon2id), session in an HttpOnly cookie signed with PyJWT |
 | Charts | Hand-written SVG |
+| Android packaging | [Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap) (Trusted Web Activity) over the same live site |
 
 ## Features
 - Sign up and sign in with email and password; each account starts empty.
@@ -32,6 +34,7 @@ A private, multi-user expense tracker I built end to end: a Python API, a SQL da
   - Expenses by category pie
   - Income by category pie
   - Month-on-month expenses by calendar month, with a line across the column tops, a linear trend line and an expense-category filter
+- Installable as a Progressive Web App (manifest + offline app-shell caching via a Service Worker), and wrapped as a native Android app with no address bar via Google's Trusted Web Activity approach
 
 ## How the numbers work
 - **Current period:** `Period Starting Date <= date <= Period Ending Date`, both inclusive.
@@ -52,12 +55,19 @@ A private, multi-user expense tracker I built end to end: a Python API, a SQL da
 ## Project structure
 ```
 app/
-  main.py          API, auth, data model, calculations, CSV import, charts data
-  assets/png/      site icon
+  main.py                  API, auth, data model, calculations, CSV import, charts data,
+                           and the routes serving manifest.json, sw.js and assetlinks.json
+  assets/png/              site icon (favicon.svg)
   static/
-    index.html     page shell and styles
-    app.js         user interface and SVG charts
-requirements.txt   Python dependencies
+    index.html             page shell and styles
+    app.js                 user interface and SVG charts
+    manifest.json          Web App Manifest (name, colors, icons, display mode)
+    sw.js                  Service Worker (caches the static app shell only, never API data)
+    icons/                 192x192, 512x512 and maskable 512x512 PNG icons for install/Android
+    .well-known/
+      assetlinks.json      Digital Asset Links - proves the domain owns the Android app
+twa-manifest.json          Bubblewrap config for the Android (TWA) build
+requirements.txt           Python dependencies
 ```
 
 ## Data model
@@ -88,3 +98,22 @@ requirements.txt   Python dependencies
 - Timezone and currency are stored per user but have no screen yet (defaults Asia/Colombo and LKR); the API accepts changes.
 - Login throttling is in memory, so it suits a single instance.
 - Free database tiers usually have no verified backups, so export or dump data regularly.
+
+## Android app (Bubblewrap / Trusted Web Activity)
+The web app is also shipped as an installable Android app, with no rewrite and no separate codebase to maintain. This uses Google's [Trusted Web Activity](https://developer.chrome.com/docs/android/trusted-web-activity/) approach: the Android app is a thin native shell that launches the live site full-screen, with no browser address bar, once the domain is verified as belonging to that app.
+
+**How it fits together**
+- `app/static/manifest.json` — the Web App Manifest: name, theme colors, display mode and icon set. This is what makes the site installable from a browser ("Add to Home screen") even before any Android packaging happens.
+- `app/static/sw.js` — a minimal Service Worker. It only caches the static app shell (the HTML/JS/CSS and the manifest itself) so the app opens instantly and works offline for its shell; it deliberately never caches anything under `/api/`, so financial data is always fetched fresh and nothing sensitive is stored offline.
+- `app/static/.well-known/assetlinks.json` — the Digital Asset Links file. Android fetches this live from the domain to confirm the app claiming to represent it was signed with the matching key; without it, the app falls back to showing a browser-style address bar.
+- `twa-manifest.json` — [Bubblewrap's](https://github.com/GoogleChromeLabs/bubblewrap) configuration for generating the actual Android project: package id, host, icons, colors, signing key path.
+
+**Building the Android app**
+1. Generate `icon-192.png`, `icon-512.png` and a padded `icon-512-maskable.png` from the SVG icon and place them in `app/static/icons/` (a [maskable icon editor](https://maskable.app/editor) helps get the safe-zone padding right).
+2. Deploy so the manifest, service worker, icons and `assetlinks.json` are all live on the real domain.
+3. Install Bubblewrap: `npm install -g @bubblewrap/cli`.
+4. From the project root: `bubblewrap build`. This reads `twa-manifest.json`, produces a signed `.apk`/`.aab`, and generates a signing keystore.
+5. Get the app's SHA-256 signing fingerprint (`keytool -list -v -keystore <path> -alias android`) and paste it into `assetlinks.json`'s `sha256_cert_fingerprints`, then redeploy so the updated file is live.
+6. Install the `.apk` on a device to confirm it opens with no address bar, then upload the `.aab` to the Play Console to publish.
+
+**Security note:** `assetlinks.json` and its fingerprint are meant to be public — Android fetches the file openly over HTTPS to verify the app, and a SHA-256 fingerprint can't be used to derive or forge the private signing key. The actual keystore file (and any signing passwords) must never be committed; `.gitignore` excludes `*.keystore` and `*.jks`.

@@ -2,3 +2,5 @@ keys.txt
 expenses.db
 .venv
 __pycache__
+*.keystore
+*.jks
