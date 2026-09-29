@@ -145,7 +145,9 @@ def compute(u: User, db: Session):
     te = -sum(int(Decimal(r["total"]) * 100) for r in exp)   # sheet: D20 = -SUM(...)
     bal = ti + te
     days = int(xl_round((datetime.combine(end + timedelta(days=1), datetime.min.time()) - now).total_seconds() / 86400))  # end date is inclusive
-    daily = money(int(xl_round(bal / days, 0))) if days else None  # sheet: ROUND(D4/D8,2)
+    days = "" if days < 0 else days
+    raw_daily = int(xl_round(bal / days, 0)) if days else None
+    daily = money(max(0, raw_daily)) if raw_daily is not None else None
     return cats, txns, week, inp, {
         "title": f"Expenses Summary - {end.strftime('%b %Y')}", "period_start": str(start), "auto_period_start": str(auto_start), "start_is_override": bool(u.start_override),
         "period_end_date": str(end), "auto_period_end_date": str(auto_end), "end_is_override": bool(u.end_override), "current_date": now.isoformat(timespec="minutes"),

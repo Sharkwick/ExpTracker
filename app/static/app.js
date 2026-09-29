@@ -128,8 +128,8 @@ function view() {
     <button id="sp">Save</button>${S.start_is_override || S.end_is_override ? '<button class="g" id="auto">Reset to auto</button>' : ''}</div>
     <p class="m">${S.start_is_override || S.end_is_override ? 'Manual dates in use. Reset to auto for the current month (1st to last day).' : 'Auto: current month, 1st to last day. Pick other dates to override.'}</p></div>
    <div class="card"><h2>Balance</h2><div class="big ${cls(S.balance)}">${cur} ${fmt(S.balance)}</div>
-    <p class="m">Daily average until Period Ending Date: <b class="${cls(S.daily_average)}">${S.daily_average === null ? 'N/a' : fmt(S.daily_average)}</b><br>
-    Days until Period Ending Date: <b>${S.days_until_period_end}</b>${S.days_until_period_end <= 0 ? ' <span>(N/a)</span>' : ''}<br>Now: ${esc(S.current_date.replace('T', ' '))} (${esc(S.tz)})</p></div>
+    <p class="m">Daily average until Period Ending Date: <b class="${cls(S.daily_average)}">${S.daily_average === null ? 'Only applicable for current month' : fmt(S.daily_average)}</b><br>
+    Days until Period Ending Date: <b>${S.days_until_period_end}</b>${S.days_until_period_end <= 0 ? ' <span>Only applicable for current month</span>' : ''}<br>Now: ${esc(S.current_date.replace('T', ' '))} (${esc(S.tz)})</p></div>
    </div>
   <div class="grid">
    <div class="card"><h2>Income <span class="pos">${fmt(S.income_total)}</span></h2><table>${catRows(S.income)}</table>
