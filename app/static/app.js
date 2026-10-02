@@ -16,7 +16,7 @@ let fInc = '', fExp = '', fDesc = '', fMin = '', fMax = ''; // transaction colum
 
 function authView(mode = 'login') {
   const su = mode === 'signup';
-  root.innerHTML = `<div id="auth" class="card"><h1>ExpTracker by Wickz</h1><p>login or create an account, it's free!</p><p class="m">${su ? 'Create your private account' : 'Sign in to your account'}</p>
+  root.innerHTML = `<div id="auth" class="card"><img class="icon" src="/favicon.svg" alt=""><h1>ExpTracker by Wickz</h1><p>login or create an account, it's free!</p><p class="m">${su ? 'Create your private account' : 'Sign in to your account'}</p>
   <input id="em" type="email" placeholder="Email" autocomplete="username"><input id="pw" type="password" placeholder="Password${su ? ' (10+ characters)' : ''}" autocomplete="${su ? 'new-password' : 'current-password'}">
   <div class="err" id="er"></div><div class="row"><button id="go">${su ? 'Sign up' : 'Sign in'}</button><button class="g" id="sw">${su ? 'I have an account' : 'Create account'}</button></div></div>`;
   $('#sw').onclick = () => authView(su ? 'login' : 'signup');

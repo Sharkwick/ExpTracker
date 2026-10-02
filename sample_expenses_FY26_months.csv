@@ -1,0 +1,239 @@
+Date,Income Type,Exp Type,Description,Amount
+2026-01-01,Salary,,Monthly salary,149591.4
+2026-01-04,,Eating out,Coffee,3466.23
+2026-01-06,,Eating out,Uber Eats,1743.45
+2026-01-07,,Transport,Uber,1411.78
+2026-01-07,,Eating out,Uber Eats,857.74
+2026-01-09,Interest,,Savings account interest,1112.23
+2026-01-09,,Groceries,M&S,4783.79
+2026-01-09,,Utilities,Internet bill,5814.11
+2026-01-14,,Transport,Fuel,1288.26
+2026-01-18,,Transport,Train ticket,1875.24
+2026-01-19,,Utilities,Electricity bill,2190.7
+2026-01-19,,Transport,Uber,1850.06
+2026-01-22,,Transport,Uber,2000.75
+2026-01-23,,Utilities,Water bill,4041.5
+2026-01-24,,Groceries,M&S,4545.15
+2026-01-26,,Groceries,Asda,4914.63
+2026-01-27,,Medicine,Lab test,2241.12
+2026-01-28,,Transport,Bus fare,2206.26
+2026-01-30,,Utilities,Internet bill,2472.8
+2026-02-01,Salary,,Monthly salary,150527.3
+2026-02-05,,Eating out,Coffee,988.71
+2026-02-06,,Utilities,Water bill,4276.73
+2026-02-07,,Medicine,Prescription,1847.46
+2026-02-08,,Groceries,Local market,5122.71
+2026-02-09,,Groceries,Tesco,2449.42
+2026-02-13,,Utilities,Mobile top-up,5575.33
+2026-02-17,,Utilities,Electricity bill,2545.46
+2026-02-17,,Eating out,Restaurant,3898.77
+2026-02-18,,Eating out,Uber Eats,3114.55
+2026-02-19,,Utilities,Water bill,4171.98
+2026-02-20,,Medicine,Clinic visit,764.76
+2026-02-22,,Eating out,Restaurant,3449.98
+2026-02-22,,Medicine,Lab test,578.02
+2026-02-25,,Medicine,Lab test,1322.58
+2026-02-26,,Medicine,Pharmacy,1593.13
+2026-02-28,,Groceries,Asda,2187.79
+2026-03-01,Salary,,Monthly salary,146521.48
+2026-03-03,,Entertainment,Games,1571.02
+2026-03-05,,Eating out,Coffee,3168.79
+2026-03-05,,Medicine,Clinic visit,1768.43
+2026-03-07,,Entertainment,Games,1095.4
+2026-03-08,,Groceries,Asda,3021.39
+2026-03-08,,Groceries,Tesco,5574.39
+2026-03-08,,Utilities,Water bill,6844.98
+2026-03-09,,Entertainment,Games,4425.95
+2026-03-15,,Entertainment,Streaming subscription,2531.69
+2026-03-16,,Groceries,Tesco,2003.4
+2026-03-17,,Transport,Uber,1416.9
+2026-03-19,,Transport,Uber,315.82
+2026-03-23,,Eating out,Uber Eats,1896.47
+2026-03-24,,Utilities,Water bill,6896.14
+2026-03-28,,Medicine,Clinic visit,1184.87
+2026-03-29,,Eating out,Cafe,1338.08
+2026-03-29,,Entertainment,Movie tickets,4761.27
+2026-03-31,,Entertainment,Concert,4633.22
+2026-03-31,,Transport,Uber,2343.61
+2026-04-01,Salary,,Monthly salary,141414.89
+2026-04-02,,Utilities,Electricity bill,6369.28
+2026-04-02,,Medicine,Pharmacy,3497.63
+2026-04-02,,Groceries,Asda,4128.8
+2026-04-02,,Entertainment,Streaming subscription,860.5
+2026-04-03,,Transport,Bus fare,665.88
+2026-04-03,,Entertainment,Streaming subscription,805.82
+2026-04-05,,Utilities,Mobile top-up,3100.93
+2026-04-05,,Transport,Uber,952.76
+2026-04-06,,Utilities,Mobile top-up,2012.93
+2026-04-08,,Transport,Bus fare,718.46
+2026-04-08,,Groceries,M&S,3494.09
+2026-04-09,,Utilities,Mobile top-up,3711.5
+2026-04-13,,Groceries,Asda,5737.18
+2026-04-14,,Utilities,Electricity bill,4802.15
+2026-04-14,,Medicine,Lab test,2126.12
+2026-04-16,,Transport,Uber,2202.23
+2026-04-19,,Medicine,Lab test,1989.24
+2026-04-19,,Entertainment,Movie tickets,678.84
+2026-04-22,,Medicine,Pharmacy,3447.75
+2026-04-30,,Eating out,Uber Eats,1214.91
+2026-05-01,Salary,,Monthly salary,143580.29
+2026-05-01,,Medicine,Lab test,2896.44
+2026-05-02,,Groceries,Asda,3001
+2026-05-03,,Entertainment,Concert,1459.19
+2026-05-03,,Medicine,Lab test,1597.8
+2026-05-04,,Groceries,Asda,5752.73
+2026-05-05,,Eating out,Cafe,3583.02
+2026-05-07,,Medicine,Lab test,2292.99
+2026-05-09,,Groceries,Asda,5503.71
+2026-05-09,,Eating out,Uber Eats,2616.9
+2026-05-11,,Groceries,M&S,1541.92
+2026-05-12,,Eating out,Coffee,1052.11
+2026-05-14,,Transport,Fuel,392.02
+2026-05-17,,Utilities,Electricity bill,3506.73
+2026-05-18,,Medicine,Pharmacy,1611.37
+2026-05-18,,Groceries,Asda,5255.68
+2026-05-20,,Medicine,Clinic visit,710.03
+2026-05-21,,Eating out,Uber Eats,1065.54
+2026-05-22,Interest,,Savings account interest,2113.75
+2026-05-22,,Transport,Fuel,1767.25
+2026-05-23,,Eating out,Coffee,2640.87
+2026-05-25,,Entertainment,Games,4478.61
+2026-05-29,,Groceries,Asda,5545.16
+2026-05-30,,Medicine,Clinic visit,541.84
+2026-06-01,Salary,,Monthly salary,149591.4
+2026-06-04,,Eating out,Coffee,3466.23
+2026-06-06,,Eating out,Uber Eats,1743.45
+2026-06-07,,Transport,Uber,1411.78
+2026-06-07,,Eating out,Uber Eats,857.74
+2026-06-09,Interest,,Savings account interest,1112.23
+2026-06-09,,Groceries,M&S,4783.79
+2026-06-09,,Utilities,Internet bill,5814.11
+2026-06-14,,Transport,Fuel,1288.26
+2026-06-18,,Transport,Train ticket,1875.24
+2026-06-19,,Utilities,Electricity bill,2190.7
+2026-06-19,,Transport,Uber,1850.06
+2026-06-22,,Transport,Uber,2000.75
+2026-06-23,,Utilities,Water bill,4041.5
+2026-06-24,,Groceries,M&S,4545.15
+2026-06-26,,Groceries,Asda,4914.63
+2026-06-27,,Medicine,Lab test,2241.12
+2026-06-28,,Transport,Bus fare,2206.26
+2026-06-30,,Utilities,Internet bill,2472.8
+2026-07-01,Salary,,Monthly salary,150527.3
+2026-07-05,,Eating out,Coffee,988.71
+2026-07-06,,Utilities,Water bill,4276.73
+2026-07-07,,Medicine,Prescription,1847.46
+2026-07-08,,Groceries,Local market,5122.71
+2026-07-09,,Groceries,Tesco,2449.42
+2026-07-13,,Utilities,Mobile top-up,5575.33
+2026-07-17,,Utilities,Electricity bill,2545.46
+2026-07-17,,Eating out,Restaurant,3898.77
+2026-07-18,,Eating out,Uber Eats,3114.55
+2026-07-19,,Utilities,Water bill,4171.98
+2026-07-20,,Medicine,Clinic visit,764.76
+2026-07-22,,Eating out,Restaurant,3449.98
+2026-07-22,,Medicine,Lab test,578.02
+2026-07-25,,Medicine,Lab test,1322.58
+2026-07-26,,Medicine,Pharmacy,1593.13
+2026-07-28,,Groceries,Asda,2187.79
+2026-08-01,Salary,,Monthly salary,146521.48
+2026-08-03,,Entertainment,Games,1571.02
+2026-08-05,,Eating out,Coffee,3168.79
+2026-08-05,,Medicine,Clinic visit,1768.43
+2026-08-07,,Entertainment,Games,1095.4
+2026-08-08,,Groceries,Asda,3021.39
+2026-08-08,,Groceries,Tesco,5574.39
+2026-08-08,,Utilities,Water bill,6844.98
+2026-08-09,,Entertainment,Games,4425.95
+2026-08-15,,Entertainment,Streaming subscription,2531.69
+2026-08-16,,Groceries,Tesco,2003.4
+2026-08-17,,Transport,Uber,1416.9
+2026-08-19,,Transport,Uber,315.82
+2026-08-23,,Eating out,Uber Eats,1896.47
+2026-08-24,,Utilities,Water bill,6896.14
+2026-08-28,,Medicine,Clinic visit,1184.87
+2026-08-29,,Eating out,Cafe,1338.08
+2026-08-29,,Entertainment,Movie tickets,4761.27
+2026-08-31,,Entertainment,Concert,4633.22
+2026-08-31,,Transport,Uber,2343.61
+2026-09-01,Salary,,Monthly salary,149591.4
+2026-09-04,,Eating out,Coffee,3466.23
+2026-09-06,,Eating out,Uber Eats,1743.45
+2026-09-07,,Transport,Uber,1411.78
+2026-09-07,,Eating out,Uber Eats,857.74
+2026-09-09,Interest,,Savings account interest,1112.23
+2026-09-09,,Groceries,M&S,4783.79
+2026-09-09,,Utilities,Internet bill,5814.11
+2026-09-14,,Transport,Fuel,1288.26
+2026-09-18,,Transport,Train ticket,1875.24
+2026-09-19,,Utilities,Electricity bill,2190.7
+2026-09-19,,Transport,Uber,1850.06
+2026-09-22,,Transport,Uber,2000.75
+2026-09-23,,Utilities,Water bill,4041.5
+2026-09-24,,Groceries,M&S,4545.15
+2026-09-26,,Groceries,Asda,4914.63
+2026-09-27,,Medicine,Lab test,2241.12
+2026-09-28,,Transport,Bus fare,2206.26
+2026-09-30,,Utilities,Internet bill,2472.8
+2026-10-01,Salary,,Monthly salary,141414.89
+2026-10-02,,Utilities,Electricity bill,6369.28
+2026-10-02,,Medicine,Pharmacy,3497.63
+2026-10-02,,Groceries,Asda,4128.8
+2026-10-02,,Entertainment,Streaming subscription,860.5
+2026-10-03,,Transport,Bus fare,665.88
+2026-10-03,,Entertainment,Streaming subscription,805.82
+2026-10-05,,Utilities,Mobile top-up,3100.93
+2026-10-05,,Transport,Uber,952.76
+2026-10-06,,Utilities,Mobile top-up,2012.93
+2026-10-08,,Transport,Bus fare,718.46
+2026-10-08,,Groceries,M&S,3494.09
+2026-10-09,,Utilities,Mobile top-up,3711.5
+2026-10-13,,Groceries,Asda,5737.18
+2026-10-14,,Utilities,Electricity bill,4802.15
+2026-10-14,,Medicine,Lab test,2126.12
+2026-10-16,,Transport,Uber,2202.23
+2026-10-19,,Medicine,Lab test,1989.24
+2026-10-19,,Entertainment,Movie tickets,678.84
+2026-10-22,,Medicine,Pharmacy,3447.75
+2026-10-30,,Eating out,Uber Eats,1214.91
+2026-11-01,Salary,,Monthly salary,143580.29
+2026-11-01,,Medicine,Lab test,2896.44
+2026-11-02,,Groceries,Asda,3001
+2026-11-03,,Entertainment,Concert,1459.19
+2026-11-03,,Medicine,Lab test,1597.8
+2026-11-04,,Groceries,Asda,5752.73
+2026-11-05,,Eating out,Cafe,3583.02
+2026-11-07,,Medicine,Lab test,2292.99
+2026-11-09,,Groceries,Asda,5503.71
+2026-11-09,,Eating out,Uber Eats,2616.9
+2026-11-11,,Groceries,M&S,1541.92
+2026-11-12,,Eating out,Coffee,1052.11
+2026-11-14,,Transport,Fuel,392.02
+2026-11-17,,Utilities,Electricity bill,3506.73
+2026-11-18,,Medicine,Pharmacy,1611.37
+2026-11-18,,Groceries,Asda,5255.68
+2026-11-20,,Medicine,Clinic visit,710.03
+2026-11-21,,Eating out,Uber Eats,1065.54
+2026-11-22,Interest,,Savings account interest,2113.75
+2026-11-22,,Transport,Fuel,1767.25
+2026-11-23,,Eating out,Coffee,2640.87
+2026-11-25,,Entertainment,Games,4478.61
+2026-11-29,,Groceries,Asda,5545.16
+2026-11-30,,Medicine,Clinic visit,541.84
+2026-12-01,Salary,,Monthly salary,150527.3
+2026-12-05,,Eating out,Coffee,988.71
+2026-12-06,,Utilities,Water bill,4276.73
+2026-12-07,,Medicine,Prescription,1847.46
+2026-12-08,,Groceries,Local market,5122.71
+2026-12-09,,Groceries,Tesco,2449.42
+2026-12-13,,Utilities,Mobile top-up,5575.33
+2026-12-17,,Utilities,Electricity bill,2545.46
+2026-12-17,,Eating out,Restaurant,3898.77
+2026-12-18,,Eating out,Uber Eats,3114.55
+2026-12-19,,Utilities,Water bill,4171.98
+2026-12-20,,Medicine,Clinic visit,764.76
+2026-12-22,,Eating out,Restaurant,3449.98
+2026-12-22,,Medicine,Lab test,578.02
+2026-12-25,,Medicine,Lab test,1322.58
+2026-12-26,,Medicine,Pharmacy,1593.13
+2026-12-28,,Groceries,Asda,2187.79

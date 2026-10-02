@@ -1,4 +1,3 @@
-"""Monthly Expenses web app - FastAPI backend. Every query is scoped to the logged-in user."""
 import ast, calendar, csv, io, os, re, secrets, time
 from typing import Optional
 from datetime import date as Date, datetime, timedelta, timezone
@@ -449,12 +448,6 @@ def service_worker():
     # Served at the root (not /static/sw.js) so its default scope covers the whole app.
     return FileResponse(STATIC / "sw.js", media_type="application/javascript",
                         headers={"Cache-Control": "no-cache", "Service-Worker-Allowed": "/"})
-
-
-@app.get("/.well-known/assetlinks.json", include_in_schema=False)
-def asset_links():
-    # Proves this domain owns the Android (TWA) app so it launches with no browser address bar.
-    return FileResponse(STATIC / ".well-known" / "assetlinks.json", media_type="application/json")
 
 
 ICON_DIR = Path(__file__).parent / "assets" / "png"

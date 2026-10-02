@@ -8,7 +8,7 @@ A private, multi-user expense tracker I built end to end: a Python API, a SQL da
 - **Visual insight:** three pie charts and a month-on-month expense chart with a trend line and category filter, all drawn as plain SVG with no charting library.
 - **Safe CSV import:** validated and all-or-nothing, with a downloadable template.
 - **Exact money handling:** amounts stored as integer cents, never floats.
-- **Installable app:** a Progressive Web App today, and packaged as a real Android app via a Trusted Web Activity (TWA) wrapper — same codebase, no rewrite.
+- **Installable app:** a Progressive Web App — installable to a home screen / app list directly from the browser.
 
 ## Tech stack
 | Layer | Choice |
@@ -18,7 +18,6 @@ A private, multi-user expense tracker I built end to end: a Python API, a SQL da
 | Database | SQLite locally; any Postgres (for example a free-tier Neon database) through one `DATABASE_URL` setting |
 | Auth | Email and password (Argon2id), session in an HttpOnly cookie signed with PyJWT |
 | Charts | Hand-written SVG |
-| Android packaging | [Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap) (Trusted Web Activity) over the same live site |
 
 ## Features
 - Sign up and sign in with email and password; each account starts empty.
@@ -34,7 +33,7 @@ A private, multi-user expense tracker I built end to end: a Python API, a SQL da
   - Expenses by category pie
   - Income by category pie
   - Month-on-month expenses by calendar month, with a line across the column tops, a linear trend line and an expense-category filter
-- Installable as a Progressive Web App (manifest + offline app-shell caching via a Service Worker), and wrapped as a native Android app with no address bar via Google's Trusted Web Activity approach
+- Installable as a Progressive Web App (manifest + offline app-shell caching via a Service Worker)
 
 ## How the numbers work
 - **Current period:** `Period Starting Date <= date <= Period Ending Date`, both inclusive.
@@ -56,17 +55,14 @@ A private, multi-user expense tracker I built end to end: a Python API, a SQL da
 ```
 app/
   main.py                  API, auth, data model, calculations, CSV import, charts data,
-                           and the routes serving manifest.json, sw.js and assetlinks.json
+                           and the routes serving manifest.json and sw.js
   assets/png/              site icon (favicon.svg)
   static/
     index.html             page shell and styles
     app.js                 user interface and SVG charts
     manifest.json          Web App Manifest (name, colors, icons, display mode)
     sw.js                  Service Worker (caches the static app shell only, never API data)
-    icons/                 192x192, 512x512 and maskable 512x512 PNG icons for install/Android
-    .well-known/
-      assetlinks.json      Digital Asset Links - proves the domain owns the Android app
-twa-manifest.json          Bubblewrap config for the Android (TWA) build
+    icons/                 192x192 and 512x512 PNG icons for install
 requirements.txt           Python dependencies
 ```
 
@@ -98,12 +94,3 @@ requirements.txt           Python dependencies
 - Timezone and currency are stored per user but have no screen yet (defaults Asia/Colombo and LKR); the API accepts changes.
 - Login throttling is in memory, so it suits a single instance.
 - Free database tiers usually have no verified backups, so export or dump data regularly.
-
-## Android app (Bubblewrap / Trusted Web Activity)
-The web app is also shipped as an installable Android app, with no rewrite and no separate codebase to maintain. This uses Google's [Trusted Web Activity](https://developer.chrome.com/docs/android/trusted-web-activity/) approach: the Android app is a thin native shell that launches the live site full-screen, with no browser address bar, once the domain is verified as belonging to that app.
-
-**How it fits together**
-- `app/static/manifest.json` — the Web App Manifest: name, theme colors, display mode and icon set. This is what makes the site installable from a browser ("Add to Home screen") even before any Android packaging happens.
-- `app/static/sw.js` — a minimal Service Worker. It only caches the static app shell (the HTML/JS/CSS and the manifest itself) so the app opens instantly and works offline for its shell; it deliberately never caches anything under `/api/`, so financial data is always fetched fresh and nothing sensitive is stored offline.
-- `app/static/.well-known/assetlinks.json` — the Digital Asset Links file. Android fetches this live from the domain to confirm the app claiming to represent it was signed with the matching key; without it, the app falls back to showing a browser-style address bar.
-- `twa-manifest.json` — [Bubblewrap's](https://github.com/GoogleChromeLabs/bubblewrap) configuration for generating the actual Android project: package id, host, icons, colors, signing key path.
